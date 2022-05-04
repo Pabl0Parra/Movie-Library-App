@@ -1,7 +1,7 @@
 // Exercise 1: Get the array of all directors.
 function getAllDirectors(array) {
-  let result =  ???;
-  console.log("EXERCICE 1 ->", result);
+  let result = array.map(m => m.director) ;
+  // console.log("EXERCICE 1 ->", result);
   return result;
 }
 
