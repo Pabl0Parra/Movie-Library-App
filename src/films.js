@@ -22,10 +22,14 @@ function moviesAverageOfDirector(array, director) {
   const CERTAIN_DIRECTOR_FILMS = array.filter(
     (movies) => movies.director == director
   );
-  // 2nd -> array.reduce() method to find the total of a director´s movies score
+  // 2nd -> array.reduce() method to reduce down [] to just scores & math.round() to return total of a director´s movies score w/only 2 decimals.
   const DIRECTOR_SCORE_AVG =
-    CERTAIN_DIRECTOR_FILMS.reduce((total, next) => total + next.score, 0) /
-    CERTAIN_DIRECTOR_FILMS.length;
+    Math.round(
+      (CERTAIN_DIRECTOR_FILMS.reduce((total, next) => total + next.score, 0) /
+        //divide the total by the [] length to find avg
+        CERTAIN_DIRECTOR_FILMS.length) *
+        100
+    ) / 100;
 
   return DIRECTOR_SCORE_AVG;
 }
