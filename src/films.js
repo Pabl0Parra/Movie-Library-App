@@ -18,7 +18,7 @@ function getMoviesFromDirector(array, director) {
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
-  const INITIAL_VALUE = 0
+  const INITIAL_VALUE = 0;
   // 1st -> array films of a certain director
   const CERTAIN_DIRECTOR_FILMS = array.filter(
     (movies) => movies.director == director
@@ -26,12 +26,15 @@ function moviesAverageOfDirector(array, director) {
   // 2nd -> array.reduce() method to reduce down [] to just scores & math.round() to return total of a director´s movies score w/only 2 decimals.
   const DIRECTOR_SCORE_AVG =
     Math.round(
-      (CERTAIN_DIRECTOR_FILMS.reduce((total, next) => total + next.score, INITIAL_VALUE) /
+      (CERTAIN_DIRECTOR_FILMS.reduce(
+        (total, next) => total + next.score,
+        INITIAL_VALUE
+      ) /
         //divide the total by the [] length to find avg
         CERTAIN_DIRECTOR_FILMS.length) *
         100
     ) / 100;
-      
+
   return DIRECTOR_SCORE_AVG;
 }
 
@@ -52,29 +55,26 @@ function orderAlphabetically(array) {
   return INITIAL_20_TITLES_BY_ABC_ORDER;
 }
 // Exercise 5: Order by year, ascending
-function orderByYear(array) {  
+function orderByYear(array) {
   // 1st -> spread operator to clone original array so it doesn´t mutate it if we change the new array
   const CLONE_MOVIE_ARRAY = [...array];
-   
-    
-    // 2nd -> array.sort() method to classify movies titles from A to Z (aaa, aab, abb, abc, acb...)
-    const MOVIES_BY_ABC_ORDER = CLONE_MOVIE_ARRAY.sort((movieA, movieB) => {
-      if (movieA.year < movieB.year) {
-        return -1
-      } else if  (movieA.year > movieB.year) {
-          return 1
-    } else {
-        if (movieA.title < movieB.title) {
-          return -1
-        } else {
-            if (movieA.title > movieB.title) {
-              return 1
-            }
-        }
+  // 2nd -> array.sort() method to classify movies in ascending order by year & their titles from A to Z (aaa, aab, abb, abc, acb...)
+  // gotta refactor this!!!!
+  const MOVIES_BY_ABC_ORDER = CLONE_MOVIE_ARRAY.sort((movieA, movieB) => {
+    if (movieA.year < movieB.year) {
+      return -1;
     }
-     
-    })
-  return MOVIES_BY_ABC_ORDER
+    if (movieA.year > movieB.year) {
+      return 1;
+    }
+    if (movieA.title < movieB.title) {
+      return -1;
+    }
+    if (movieA.title > movieB.title) {
+      return 1;
+    }
+  });
+  return MOVIES_BY_ABC_ORDER;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
