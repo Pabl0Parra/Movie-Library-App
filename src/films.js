@@ -80,16 +80,16 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-  // 1st -> Filter out movies w/out score
+  // 1st -> Filter() method to filter out movies w/out score
   const moviesWithScore = array.filter(movies => movies.score !== '')
-  // 2nd -> Create array w/just the movies that have "genre" key from [] of movies w/score
+  // 2nd -> Filter() method to create [] w/just the movies that have "genre" key from [] of movies w/score
   const moviesByGenre = moviesWithScore.filter( (movies) => 
       movies.genre.includes(genre))
-  // 3rd -> Create [] w/all the scores 
+  // 3rd -> Map() method to create a new [] w/all the scores 
   const moviesByGenre_SCORES = moviesByGenre.map(movies => movies.score)
   // 4th -> Find score average 
   const initialValue = 0
-  // 4.1 -> Find total score
+  // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
   const totalScore = moviesByGenre_SCORES.reduce((a, b) => a + b, initialValue);
   // 4.2 -> Divide total / array.lenght to find avg, otherwise (|| operator) is 0.
   const avgScoreByCateg = (totalScore / moviesByGenre_SCORES.length) || 0;
@@ -101,7 +101,14 @@ function moviesAverageByCategory(array, genre) {
 // LEVEL 2
 
 // Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {}
+function hoursToMinutes(array) {
+  // 1st -> Deep cloning original array so that the duration sub values are disconnected from original array
+  // Below method works but you have to know the object structure
+  //const cloneMovieArray = [{duration: {...array.duration}}]
+  // Stringify array and parse it right after to deep clone original array w/out thinking about its structure
+  const cloneMovieArray = JSON.parse(JSON.stringify(array))
+
+}
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {}
