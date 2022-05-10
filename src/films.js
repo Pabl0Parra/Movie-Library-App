@@ -4,16 +4,12 @@
 function getAllDirectors(array) {
   // array.map() method to iterate [] & create a new [] w/just the directors
   return array.map((movies) => movies.director);
-  
 }
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
   // array.filter() method to create new array w/just films of a certain director
-  return array.filter(
-    (movies) => movies.director == director
-  );
-
+  return array.filter((movies) => movies.director == director);
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
@@ -24,7 +20,8 @@ function moviesAverageOfDirector(array, director) {
     (movies) => movies.director == director
   );
   // 2nd -> array.reduce() method to reduce down [] to just scores & math.round() to return total of a director´s movies score w/only 2 decimals.
-  return Math.round(
+  return (
+    Math.round(
       (certainDirectorFilms.reduce(
         (total, next) => total + next.score,
         initialValue
@@ -32,9 +29,8 @@ function moviesAverageOfDirector(array, director) {
         //divide the total by the [] length to find avg
         certainDirectorFilms.length) *
         100
-    ) / 100;
-
- 
+    ) / 100
+  );
 }
 
 // Exercise 4:  Alphabetic order by title
@@ -50,15 +46,17 @@ function orderAlphabetically(array) {
   const moviesTitles = moviesByAlphaOrder.map((movies) => movies.title);
   // 4th -> array.slice() method to create a new array w/just the first 20 elements
   return moviesTitles.slice(0, 20);
-
-  
 }
 // Exercise 5: Order by year, ascending
 function orderByYear(array) {
   // 1st -> spread operator to clone original array so it doesn´t mutate it if we change the new array
   const cloneMovieArray = [...array];
-  // 2nd -> concatenate 2 array.sort() methods -> 1st to classify movies by their titles from A to Z (aaa, aab, abb, abc, acb...) and the second sort to arrange them in ascending order by year 
-  return cloneMovieArray.sort((a,b) =>  {if (a.title < b.title) return -1}).sort((a,b) => a.year - b.year)
+  // 2nd -> concatenate 2 array.sort() methods -> 1st to classify movies by their titles from A to Z (aaa, aab, abb, abc, acb...) and the second sort to arrange them in ascending order by year
+  return cloneMovieArray
+    .sort((a, b) => {
+      if (a.title < b.title) return -1;
+    })
+    .sort((a, b) => a.year - b.year);
 
   //  (this is working but needs improvement -- see line 65(refactorized))
   //cloneMovieArray.sort((movieA, movieB) => {
@@ -81,33 +79,42 @@ function orderByYear(array) {
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
   // 1st -> Filter() method to filter out movies w/out score
-  const moviesWithScore = array.filter(movies => movies.score !== '')
+  const moviesWithScore = array.filter((movies) => movies.score !== '');
   // 2nd -> Filter() method to create [] w/just the movies that have "genre" key from [] of movies w/score
-  const moviesByGenre = moviesWithScore.filter( (movies) => 
-      movies.genre.includes(genre))
-  // 3rd -> Map() method to create a new [] w/all the scores 
-  const moviesByGenre_SCORES = moviesByGenre.map(movies => movies.score)
-  // 4th -> Find score average 
-  const initialValue = 0
+  const moviesByGenre = moviesWithScore.filter((movies) =>
+    movies.genre.includes(genre)
+  );
+  // 3rd -> Map() method to create a new [] w/all the scores
+  const moviesByGenreScores = moviesByGenre.map((movies) => movies.score);
+  // 4th -> Find score average
+  const initialValue = 0;
   // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
-  const totalScore = moviesByGenre_SCORES.reduce((a, b) => a + b, initialValue);
-  // 4.2 -> Divide total / array.lenght to find avg, otherwise (|| operator) is 0.
-  const avgScoreByCateg = (totalScore / moviesByGenre_SCORES.length) || 0;
-  // 5th -> return avg by category -> parseFloat to convert avg to a number
-  return parseFloat(avgScoreByCateg)
-  
+  const totalScore = moviesByGenreScores.reduce((a, b) => a + b, initialValue);
+
+  const avgScoreByCateg = totalScore / moviesByGenreScores.length;
+  // parseFloat to convert avg (string) to a number
+  return parseFloat(avgScoreByCateg);
 }
 
 // LEVEL 2
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  // 1st -> Deep cloning original array so that the duration sub values are disconnected from original array
-  // Below method works but you have to know the object structure
-  //const cloneMovieArray = [{duration: {...array.duration}}]
-  // Stringify array and parse it right after to deep clone original array w/out thinking about its structure
-  const cloneMovieArray = JSON.parse(JSON.stringify(array))
+  // 1st -> Deep cloning original array so that "duration" sub values are disconnected from original array
+  // Stringify array and parse it right after to deep clone original array w/out knowing its structure
+  const cloneMovieArray = JSON.parse(JSON.stringify(array));
+  // 2nd -> Replace cloneMovieArray.duration from "#h #min" to "#" (minutes)
+  const durationInMinutes = cloneMovieArray.map((movie) => {
+    // Regex exp to remove letters from value
+    movie.duration = movie.duration.replace(/\D+/gi, '');
+    movie.duration =
+      // string.charAt to target the 1st index & slice(1) to cut the whitespace created from line above
+      movie.duration.charAt(0) * 60 + Number(movie.duration.slice(1));
 
+    return movie;
+  });
+
+  return durationInMinutes;
 }
 
 // Exercise 8: Get the best film of a year
