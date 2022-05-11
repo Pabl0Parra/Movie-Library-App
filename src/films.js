@@ -9,7 +9,7 @@ function getAllDirectors(array) {
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
   // array.filter() method to create new array w/just films of a certain director
-  return array.filter((movies) => movies.director == director);
+  return array.filter((movies) => movies.director === director);
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
@@ -17,7 +17,7 @@ function moviesAverageOfDirector(array, director) {
   const initialValue = 0;
   // 1st -> array films of a certain director
   const certainDirectorFilms = array.filter(
-    (movies) => movies.director == director
+    (movies) => movies.director === director
   );
   // 2nd -> array.reduce() method to reduce down [] to just scores & math.round() to return total of a director´s movies score w/only 2 decimals.
   return (
@@ -87,50 +87,55 @@ function moviesAverageByCategory(array, genre) {
   // 3rd -> Map() method to create a new [] w/all the scores
   const moviesByGenreScores = moviesByGenre.map((movies) => movies.score);
   // 4th -> Find score average
+
   const initialValue = 0;
   // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
   const totalScore = moviesByGenreScores.reduce((a, b) => a + b, initialValue);
   // parseFloat to convert avg (string) to a number
   return parseFloat(totalScore / moviesByGenreScores.length);
-  
-  
 }
 
 // LEVEL 2
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes(array) {
-  // 1st -> Deep cloning original array so that "duration" sub values are disconnected from original array
-  // Stringify array and parse it right after to deep clone original array w/out knowing its structure
+  /* 1st -> Deep cloning original array so that "duration" sub values are disconnected from original array. First, I
+  stringify [] and parse it right after.This method allows deep cloning w/out knowing its structure */
   const cloneMovieArray = JSON.parse(JSON.stringify(array));
   // 2nd -> Replace cloneMovieArray.duration from "#h #min" to "#" (minutes)
   const durationInMinutes = cloneMovieArray.map((movie) => {
     // Regex exp to remove letters from value
     movie.duration = movie.duration.replace(/\D+/gi, '');
     movie.duration =
-      // string.charAt to target the 1st index & slice(1) to cut the whitespace created from line above
+      // string.charAt to target the hours value & slice(1) to select the minutes value
       movie.duration.charAt(0) * 60 + Number(movie.duration.slice(1));
 
     return movie;
   });
-    
+
   return durationInMinutes;
 }
+
+// LEVEL 3
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(array, year) {
   // 1st -> Deep cloning [] so that original is not update & the sub values are disconnected from original []
-  const cloneMovieArray = JSON.parse(JSON.stringify(array))
+  const cloneMovieArray = JSON.parse(JSON.stringify(array));
   // 2nd -> Create [] w/movies from the same year
-  const sameYearMovies = cloneMovieArray.filter(movie => movie.year === year)
+  const sameYearMovies = cloneMovieArray.filter((movie) => movie.year === year);
   // 3rd -> Create [] w/same year movies' scores
-  const sameYearMoviesScores = sameYearMovies.map(movie => movie.score)
-  // 4th -> Find highest score in the previous []. "?" If condition is true, the operator has the value of movie.score. Otherwise it has the value of best
-  const bestScore = sameYearMoviesScores.reduce((best, movie) => (movie.score > best ? movie.score:best))
-  // 5th -> Find the movie that correspond to the highest score from the previous []
-  const bestFilmOfYear = sameYearMovies.filter(movie => movie.score === bestScore)
+  const sameYearMoviesScores = sameYearMovies.map((movie) => movie.score);
+  // 4th -> Find highest score in the previous [].
+  const bestScore = sameYearMoviesScores.reduce((best, movie) =>
+    movie.score > best ? movie.score : best
+  );
+  // 5th -> Find the movie that correspond to the highest score from [sameYearMovies]
+  const bestFilmOfYear = sameYearMovies.filter(
+    (movie) => movie.score === bestScore
+  );
   //console.log("ex 8 ->", bestFilmOfYear)
-  return bestFilmOfYear
+  return bestFilmOfYear;
 }
 
 // The following is required to make unit tests work.
