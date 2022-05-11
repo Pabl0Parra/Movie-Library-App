@@ -90,10 +90,10 @@ function moviesAverageByCategory(array, genre) {
   const initialValue = 0;
   // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
   const totalScore = moviesByGenreScores.reduce((a, b) => a + b, initialValue);
-
-  const avgScoreByCateg = totalScore / moviesByGenreScores.length;
   // parseFloat to convert avg (string) to a number
-  return parseFloat(avgScoreByCateg);
+  return parseFloat(totalScore / moviesByGenreScores.length);
+  
+  
 }
 
 // LEVEL 2
@@ -113,12 +113,25 @@ function hoursToMinutes(array) {
 
     return movie;
   });
-
+    
   return durationInMinutes;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {}
+function bestFilmOfYear(array, year) {
+  // 1st -> Deep cloning [] so that original is not update & the sub values are disconnected from original []
+  const cloneMovieArray = JSON.parse(JSON.stringify(array))
+  // 2nd -> Create [] w/movies from the same year
+  const sameYearMovies = cloneMovieArray.filter(movie => movie.year === year)
+  // 3rd -> Create [] w/same year movies' scores
+  const sameYearMoviesScores = sameYearMovies.map(movie => movie.score)
+  // 4th -> Find highest score in the previous []. "?" If condition is true, the operator has the value of movie.score. Otherwise it has the value of best
+  const bestScore = sameYearMoviesScores.reduce((best, movie) => (movie.score > best ? movie.score:best))
+  // 5th -> Find the movie that correspond to the highest score from the previous []
+  const bestFilmOfYear = sameYearMovies.filter(movie => movie.score === bestScore)
+  //console.log("ex 8 ->", bestFilmOfYear)
+  return bestFilmOfYear
+}
 
 // The following is required to make unit tests work.
 /* Environment setup. Do not modify the below code. */
