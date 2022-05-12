@@ -61,9 +61,11 @@ function orderByYear(array) {
   //  (this is working but needs improvement -- see line 65(refactorized))
   //cloneMovieArray.sort((movieA, movieB) => {
   //   if (movieA.year < movieB.year) {
-  //     return -1;
+          //-1 means movieA goes before movieB
+  //     return -1; 
   //   }
   //   if (movieA.year > movieB.year) {
+          // 1 means movieA goes after movieB
   //     return 1;
   //   }
   //   if (movieA.title < movieB.title) {
