@@ -105,7 +105,7 @@ function hoursToMinutes(array) {
   stringify [] and parse it right after.This method allows deep cloning w/out knowing its structure */
   const cloneMovieArray = JSON.parse(JSON.stringify(array));
   // 2nd -> Replace cloneMovieArray.duration from "#h #min" to "#" (minutes)
-  const durationInMinutes = cloneMovieArray.map((movie) => {
+  return cloneMovieArray.map((movie) => {
     // Regex exp to remove letters from value
     movie.duration = movie.duration.replace(/\D+/gi, '');
     movie.duration =
@@ -115,7 +115,7 @@ function hoursToMinutes(array) {
     return movie;
   });
 
-  return durationInMinutes;
+  
 }
 
 // LEVEL 3
