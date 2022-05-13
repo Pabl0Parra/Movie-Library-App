@@ -19,14 +19,13 @@ function moviesAverageOfDirector(array, director) {
   const certainDirectorFilms = array.filter(
     (movies) => movies.director === director
   );
-  // 2nd -> array.reduce() method to reduce down [] to just scores & math.round() to return total of a director´s movies score w/only 2 decimals.
+  // 2nd -> array.reduce() method to reduce down [] to just one total score & math.round() to return total of a director´s movies score w/only 2 decimals,
   return (
     Math.round(
       (certainDirectorFilms.reduce(
         (total, next) => total + next.score,
         initialValue
       ) /
-        //divide the total by the [] length to find avg
         certainDirectorFilms.length) *
         100
     ) / 100
@@ -78,17 +77,17 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-  // 2nd -> Filter() method to create [] w/just the movies that have "genre" key from [] of movies w/score
+  // 1nd -> Filter() method to create [] w/just the movies that have "genre" key from [] of movies w/score
   const moviesByGenre = array.filter((movies) => {
     if (movies.genre.includes(genre) && movies.score != false) {
       return movies;
     }
   });
-  // 3rd -> Map() method to create a new [] w/all the scores
+  // 2rd -> Map() method to create a new [] w/all the scores
   const moviesByGenreScores = moviesByGenre.map((movies) => movies.score);
-  // 4th -> Find score average
+  // 3th -> Find score average
   const initialValue = 0;
-  // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
+  // 3.1 -> Find total score of movies by genre (using same formula as in Ex_3)
   const totalScore = moviesByGenreScores.reduce((a, b) => a + b, initialValue);
   // parseFloat to convert avg (string) to a number
   return parseFloat(totalScore / moviesByGenreScores.length);
