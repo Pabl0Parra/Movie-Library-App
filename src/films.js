@@ -78,16 +78,15 @@ function orderByYear(array) {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, genre) {
-  // 1st -> Filter() method to filter out movies w/out score
-  const moviesWithScore = array.filter((movies) => movies.score !== '');
   // 2nd -> Filter() method to create [] w/just the movies that have "genre" key from [] of movies w/score
-  const moviesByGenre = moviesWithScore.filter((movies) =>
-    movies.genre.includes(genre)
-  );
+  const moviesByGenre = array.filter((movies) => {
+    if (movies.genre.includes(genre) && movies.score != false) {
+      return movies;
+    }
+  });
   // 3rd -> Map() method to create a new [] w/all the scores
   const moviesByGenreScores = moviesByGenre.map((movies) => movies.score);
   // 4th -> Find score average
-
   const initialValue = 0;
   // 4.1 -> Find total score of movies by genre (using same formula as in Ex_3)
   const totalScore = moviesByGenreScores.reduce((a, b) => a + b, initialValue);
@@ -103,7 +102,7 @@ function hoursToMinutes(array) {
   stringify [] and parse it right after.This method allows deep cloning w/out knowing its structure */
   const cloneMovieArray = JSON.parse(JSON.stringify(array));
   // 2nd -> Replace cloneMovieArray.duration from "#h #min" to "#" (minutes)
-  const durationInMinutes = cloneMovieArray.map((movie) => {
+  return cloneMovieArray.map((movie) => {
     // Regex exp to remove letters from value
     movie.duration = movie.duration.replace(/\D+/gi, '');
     movie.duration =
@@ -112,8 +111,6 @@ function hoursToMinutes(array) {
 
     return movie;
   });
-
-  return durationInMinutes;
 }
 
 // LEVEL 3
@@ -130,12 +127,8 @@ function bestFilmOfYear(array, year) {
   const bestScore = sameYearMoviesScores.reduce((best, movie) =>
     movie.score > best ? movie.score : best
   );
-  // 5th -> Find the movie that correspond to the highest score from [sameYearMovies]
-  const bestFilmOfYear = sameYearMovies.filter(
-    (movie) => movie.score === bestScore
-  );
-  //console.log("ex 8 ->", bestFilmOfYear)
-  return bestFilmOfYear;
+  // 5th -> Find bestFilmOfYear
+  return sameYearMovies.filter((movie) => movie.score === bestScore);
 }
 
 // The following is required to make unit tests work.
