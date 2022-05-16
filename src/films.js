@@ -51,7 +51,7 @@ function orderByYear(array) {
   // 1st -> spread operator to clone original array so it doesn´t mutate it if we change the new array
   const cloneMovieArray = [...array];
   // 2nd -> concatenate 2 array.sort() methods -> 1st to classify movies by their titles from A to Z (aaa, aab, abb, abc, acb...) and the second sort to arrange them in ascending order by year
-  return cloneMovieArray
+  return [...array]
     .sort((a, b) => {
       if (a.title < b.title) return -1;
     })
