@@ -51,28 +51,11 @@ function orderByYear(array) {
   // 1st -> spread operator to clone original array so it doesn´t mutate it if we change the new array
   const cloneMovieArray = [...array];
   // 2nd -> concatenate 2 array.sort() methods -> 1st to classify movies by their titles from A to Z (aaa, aab, abb, abc, acb...) and the second sort to arrange them in ascending order by year
-  return [...array]
+  return cloneMovieArray
     .sort((a, b) => {
       if (a.title < b.title) return -1;
     })
-    .sort((a, b) => a.year - b.year);
-
-  //  (this is working but needs improvement -- see line 65(refactorized))
-  //cloneMovieArray.sort((movieA, movieB) => {
-  //   if (movieA.year < movieB.year) {
-  //     return -1;
-  //   }
-  //   if (movieA.year > movieB.year) {
-  //     return 1;
-  //   }
-  //   if (movieA.title < movieB.title) {
-  //     return -1;
-  //   }
-  //   if (movieA.title > movieB.title) {
-  //     return 1;
-  //   }
-  // });
-  // return MOVIES_BY_YEAR_IN_ABC_ORDER;
+    .sort((a, b) => a.year - b.year); 
 }
 
 // Exercise 6: Calculate the average of the movies in a category
